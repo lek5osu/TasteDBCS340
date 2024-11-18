@@ -1,0 +1,101 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Taste DB</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>Taste DB</h1>
+  </header>
+  <nav class="="global">
+[ <a href="index.html">Home</a>|<a href="users.html"> Users </a>|<a href="restaurantsDishes.html">Restaurants and Dishes</a> | 
+<a href="restaurantsAddress.html">Restaurant Addresses</a>| <a href="reviews.html">Reviews</a> 
+  </nav>
+<div id="browse" style="display: block">
+<p><strong>Dish Reviews</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#">New</a></th>
+    <th>Review ID</th>
+    <th>User ID</th>
+    <th>Dish Name</th>
+    <th>Restaurant Name</th>
+    <th>Review Date</th>
+    <th>Review Comments</th>
+    <th>Taste</th>
+    <th>Presentation</th>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align="left" >1</td>
+    <td align="left" >1</td>
+    <td align="left" >Cheeseburger</td>
+    <td align="left" >McDonalds</td>
+    <td align="left" >10/31/2024</td>
+    <td align="left" >Good</td>
+    <td align="left" >9</td>
+    <td align="left" >8</td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td align="left" >2</td>
+    <td align="left" >1</td>
+    <td align="left" >Buffalo Wings</td>
+    <td align="left" >Wingstop</td>
+    <td align="left" >10/31/2024</td>
+    <td align="left" >Bad</td>
+    <td align="left" >4</td>
+    <td align="left" >4</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+  <form id="addReview">
+    <legend><strong>Add User Review (optional)</strong></legend>
+    <fieldset class="fields">
+        <label for="userID">User ID:</label>
+        <select name="UserID" id="userID" required>
+            <option value="">Select a User</option>
+            <option value="Restaurant1">Michael Johnson</option>
+            <option value="Restaurant2">Michael Keys</option>
+        </select>
+
+        <label for="restaurantName">Restaurant:</label>
+        <select name="RestaurantName" id="restaurantName" required>
+            <option value="">Select a restaurant</option>
+            <option value="Restaurant1">McDonalds</option>
+            <option value="Restaurant2">WingStop</option>
+        </select>
+
+        <label for="dishName">Dish:</label>
+        <select name="DishName" id="dishName" required>
+            <option value="">Select a Dish</option>
+            <option value="Cheeseburger">Cheeseburger</option>
+            <option value="Buffalo Wings">Buffalo Wings</option>
+        </select>
+
+        <label for="reviewDate">Review Date:</label>
+        <input type="date" name="ReviewDate" id="reviewDate" required>
+
+        <label for="reviewComments">Review Comments:</label>
+        <textarea name="ReviewComments" id="reviewComments" rows="4" required></textarea>
+
+        <label for="taste">Taste (1-10):</label>
+        <input type="number" name="Taste" id="taste" min="1" max="10" required>
+
+        <label for="presentation">Presentation (1-10):</label>
+        <input type="number" name="Presentation" id="presentation" min="1" max="10" required>
+        
+    </fieldset>
+        <input class="btn" type="submit" id="addReview" value="Add Review">
+        <input class="btn" type="button" value="Cancel">
+    </form><!--add new review-->
+</div><!-- insert -->
+<p>&nbsp;</p>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Taste DB</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>Taste DB</h1>
+  </header>
+  <nav class="="global">
+[ <a href="index.html">Home</a>|<a href="users.html"> Users </a>|<a href="restaurantsDishes.html">Restaurants and Dishes</a> | 
+<a href="restaurantsAddress.html">Restaurant Addresses</a>| <a href="reviews.html">Reviews</a> 
+  </nav>
+<div id="browse" style="display: block">
+<p><strong>User</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#">New</a></th>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+  </tr>
+  <tr>
+    <td align="left" >1</td>
+    <td align="left" >Michael</td>
+    <td align="left" >johnson</td>
+    <td align="left" >mj@gmail.com</td>
+  </tr>
+  <tr>
+    <td align="left" >2</td>
+    <td align="left">Michael</td>
+    <td align="left" >Keys</td>
+    <td align="left" >MK@gmail.com</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addUser">
+        <legend><strong>Add User</strong></legend>
+          <fieldset class="fields">
+            <label> First Name </label> <input type="text" name="UserFirstName">
+            <label> Last Name </label> <input type="text" name="UserLastName">
+            <label> Email </label> <input type="text" name="UserEmail">
+          </fieldset>
+          <input class="btn" type="submit" id="addPlanet" value="Add User">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new user-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+
+</body>
+</html>

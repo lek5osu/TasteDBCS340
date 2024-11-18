@@ -1,0 +1,171 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Taste DB</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <header>
+    <h1>Taste DB</h1>
+  </header>
+  <nav class="="global">
+[ <a href="index.html">Home</a>|<a href="users.html"> Users </a>|<a href="restaurantsDishes.html">Restaurants and Dishes</a> | 
+<a href="restaurantsAddress.html">Restaurant Addresses</a>| <a href="reviews.html">Reviews</a> 
+  </nav>
+<div id="browse" style="display: block">
+<p><strong>Restaurants</strong></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#">New</a></th>
+    <th></th>
+    <th>ID</th>
+    <th>Restaurant Name</th>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="left" >1</td>
+    <td align="left" >McDonalds</td>
+  </tr>
+  <tr>
+    <td><a href="#">Edit</a></td>
+    <td><a href="#">Delete</a></td>
+    <td align="left" >2</td>
+    <td align="left">Wingstop</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse restaurants -->
+<div id="browse" style="display: block">
+    <p><strong>Dishes</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>ID</th>
+        <th>Dish Name</th>
+        <th>Cuisine Type</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="left" >1</td>
+        <td align="left" >Buffalo Wings</td>
+        <td align="left" >American</td>
+        
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="left" >2</td>
+        <td align="left">Cheeseburger</td>
+        <td align="left" >American</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+</div> <!-- browse dishes -->
+<div id="browse" style="display: block">
+    <p><strong>Restaurants/Dishes Junction Table</strong></p>
+    <table border="1" cellpadding="5">
+      <tr>
+        <th><a href="#">New</a></th>
+        <th></th>
+        <th>ID</th>
+        <th>Restaurant ID</th>
+        <th>Dish ID</th>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="left" >1</td>
+        <td align="left" >1</td>
+        <td align="left" >1</td>
+      </tr>
+      <tr>
+        <td><a href="#">Edit</a></td>
+        <td><a href="#">Delete</a></td>
+        <td align="left" >2</td>
+        <td align="left">2</td>
+        <td align="left" >2</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
+</div> <!-- browse RestaurantsDishes Intersection Table -->
+<div id="insert" style="display: block">
+    <form id="addRestaurant">
+        <legend><strong>Add Restaurant</strong></legend>
+          <fieldset class="fields">
+            <label> Name </label> <input type="text" name="RestaurantName" required>
+          </fieldset>
+          <input class="btn" type="submit" id="addRestaurant" value="Add Restaurant">
+          <input class="btn" type="button" value="Cancel">
+	</form> <!--add new Restaurant-->
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="insert" style="display: block">
+    <form id="addDish">
+        <legend><strong>Add Dish</strong></legend>
+          <fieldset class="fields">
+            <label> Dish Name: </label> <input type="text" name="DishName" required>
+            <label> Cuisine Type: </label> <input type="text" name="CuisineType"required>
+            <label> Restaurant: </label>
+              <select name="RestaurantName">
+                <option value="">Select a restaurant</option>
+                <option value="Restaurant1">McDonalds</option>
+                <option value="Restaurant2">WingStop</option>
+              </select>            
+          </fieldset>
+          <input class="btn" type="submit" id="addDish" value="Add Dish">
+          <input class="btn" type="button" value="Cancel">
+	</form> <!--add new Dish-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateRestaurantDish">
+      <legend><strong>Update Restaurants and Dishes</strong></legend>
+          <fieldset class="fields">
+            <label> Restaurant: </label>
+            <select name="RestaurantName">
+              <option value="">Select a restaurant</option>
+              <option value="Restaurant1">McDonalds</option>
+              <option value="Restaurant2">WingStop</option>
+            </select>   
+        <label> Dish: </label>
+            <select name="DishName">
+              <option value="">Select a Dish</option>
+              <option value="Cheeseburger">Cheeseburger</option>
+              <option value="Buffalo Wings">Buffallo Wings</option>
+            </select> 
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveRestaurant" value="Save Update">
+          <input class="btn" type="button" value="cancel" >
+    </form> 
+</div><!-- update RestaurantDish-->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="delete Restaurant and Dish">
+      <legend><strong>Delete Restaurant and Dish</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <label> Restaurant: </label>
+              <select name="RestaurantName">
+                <option value="">Select a restaurant</option>
+                <option value="Restaurant1">McDonalds</option>
+                <option value="Restaurant2">WingStop</option>
+              </select>   
+          <label> Dish: </label>
+              <select name="DishName">
+                <option value="">Select a Dish</option>
+                <option value="Cheeseburger">Cheeseburger</option>
+                <option value="Buffalo Wings">Buffallo Wings</option>
+              </select> 
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteDish" value="Delete Dish">
+    <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- delete RestaurantDish-->
+</body>
+</html>
