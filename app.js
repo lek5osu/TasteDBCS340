@@ -1,11 +1,11 @@
 /*
     SETUP
 */
-jjk
+
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-const PORT = 9244;                  // Set a port number at the top so it's easy to change in the future
+const PORT = 9254;                  // Set a port number at the top so it's easy to change in the future
 app.use(express.json());  
 app.use(express.static('public')); // dev note: this was causing so many issues
 
