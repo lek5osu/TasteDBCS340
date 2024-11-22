@@ -149,32 +149,29 @@
 </div> <!-- browse RestaurantsDishes Intersection Table -->
 
 <div id="update" style="display: block">
-  <form id="update_restaurant-form-ajax">
-      <legend><strong>Update Restaurants and Dishes</strong></legend>
-          <fieldset class="fields">
-            
-            <input type="hidden" name="RestaurantDishID" id="updateRestaurantDishID" value="1" /> <!-- Default value for testing -->
+    <form id="update_restaurant-form-ajax">
+        <legend><strong>Update Restaurants and Dishes</strong></legend>
+            <fieldset class="fields">
+            <!-- RestaurantDish Dropdown -->
+                <label for="inputRestaurantDish"> RestaurantDishID: </label>
+                <select name="inputRestaurantDish" id="mySelect">
+                    <option value="">Select a RestaurantDishID</option>
+                    {{#each RestaurantDishID}}
+                    <option value="{{this.RestaurantDishID}}">{{this.RestaurantDishID}}</option>
+                    {{/each}}
+                </select>   
 
-            <!-- Restaurant Dropdown -->
-            <label for="inputRestaurant"> Restaurant: </label>
-            <select name="inputRestaurant" id="mySelect">
-              <option value="">Select a restaurant</option>
-              <option value="1">McDonald's</option> <!-- RestaurantID: 1 -->
-              <option value="2">WingStop</option>  <!-- RestaurantID: 2 -->
-            </select>   
+                <!-- Restaurant Dropdown -->
+                <label for="input-Restaurant-update">RestaurantID: </label>
+                <input type="text" name="input-Restaurant-update" id="input-Restaurant-update">
 
-            <!-- Dish Dropdown -->
-            <label for="inputDish"> Dish: </label>
-            <select name="inputDish" id="input-Dish-update">
-              <option value="">Select a Dish</option>
-              <option value="1">Cheeseburger</option> <!-- DishID: 1 -->
-              <option value="2">Buffalo Wings</option> <!-- DishID: 2 -->
-            </select> 
-    </fieldset>
+                <!-- Dish Dropdown -->
+                <label for="input-Dish-update"> DishID: </label>
+                <input type="text" name="input-Dish-update" id="input-Dish-update">
+            </fieldset>
 
     <!--  Buttons -->
-    <input class="btn" type="submit" id="UpdateSaveRestaurant" value="Save Update">
-    <input class="btn" type="button" value="Cancel">
+    <input type="submit">
   </form> 
 <script src="./js/update_restaurant.js"></script>
 </div><!-- update RestaurantDish-->
