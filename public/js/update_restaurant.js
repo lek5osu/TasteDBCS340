@@ -7,7 +7,8 @@ updateRestaurantForm.addEventListener ("submit", function(e){
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputRestaurant = document.getElementById("mySelect");
+    let inputRestaurantDish = document.getElementById("mySelect");
+    let inputRestaurant = document.getElementById("input-Restaurant-update");
     let inputDish = document.getElementById("input-Dish-update");
 
     // Get the values from the form fields
