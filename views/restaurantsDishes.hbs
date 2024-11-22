@@ -153,11 +153,11 @@
         {{!--  --}}
         {{#each data1}}
         <tr data-value="{{this.RestaurantDishID}}">
+            <td><a href="#">Edit</a></td>
+            <td><button onclick="deleterestaurant({{this.RestaurantDishID}})">Delete</button> </td>       
             <td>{{this.RestaurantDishID}}</td>
             <td>{{this.DishID}}</td>
             <td>{{this.RestaurantID}}</td>
-            <td><a href="#">Edit</a></td>
-            <td><button onclick="deleterestaurant({{this.RestaurantDishID}})">Delete</button> </td>
         </tr>
         {{/each}}
     </tbody>
