@@ -134,11 +134,10 @@
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data1}}
         <tr>
-            <td><a href="#">Edit</a></td>
-            <td><a href="#">Delete</a></td>
             <td>{{this.RestaurantDishID}}</td>
             <td>{{this.DishID}}</td>
             <td>{{this.RestaurantID}}</td>
+            <td><button onclick="deleterestaurant({{this.RestaurantDishID}})">Delete</button> </td>
         </tr>
         {{/each}}
     </tbody>
