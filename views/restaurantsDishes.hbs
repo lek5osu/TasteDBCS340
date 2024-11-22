@@ -149,23 +149,23 @@
 </div> <!-- browse RestaurantsDishes Intersection Table -->
 
 <div id="update" style="display: block">
-  <form id="updateRestaurantDish">
+  <form id="update_restaurant-form-ajax">
       <legend><strong>Update Restaurants and Dishes</strong></legend>
           <fieldset class="fields">
             
             <input type="hidden" name="RestaurantDishID" id="updateRestaurantDishID" value="1" /> <!-- Default value for testing -->
 
             <!-- Restaurant Dropdown -->
-            <label> Restaurant: </label>
-            <select name="RestaurantName" id="updateRestaurantName">
+            <label for="inputRestaurant"> Restaurant: </label>
+            <select name="inputRestaurant" id="mySelect">
               <option value="">Select a restaurant</option>
               <option value="1">McDonald's</option> <!-- RestaurantID: 1 -->
               <option value="2">WingStop</option>  <!-- RestaurantID: 2 -->
             </select>   
 
             <!-- Dish Dropdown -->
-            <label> Dish: </label>
-            <select name="DishName" id="updateDishName">
+            <label for="inputDish"> Dish: </label>
+            <select name="inputDish" id="input-Dish-update">
               <option value="">Select a Dish</option>
               <option value="1">Cheeseburger</option> <!-- DishID: 1 -->
               <option value="2">Buffalo Wings</option> <!-- DishID: 2 -->
@@ -176,8 +176,10 @@
     <input class="btn" type="submit" id="UpdateSaveRestaurant" value="Save Update">
     <input class="btn" type="button" value="Cancel">
   </form> 
+<script src="./js/update_restaurant.js"></script>
 </div><!-- update RestaurantDish-->
 
+/*  
 <p>&nbsp;</p>
 <p><strong>Delete Restaurant and Dish</strong></p>
 <div id="delete" style="display: block">
@@ -209,5 +211,6 @@
           <input class="btn" type="button" value="cancel" >
   </form> 
 </div><!-- delete RestaurantDish-->
+*/ May not be necessary
 </body>
 </html>
