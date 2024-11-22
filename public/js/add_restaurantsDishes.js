@@ -1,5 +1,5 @@
 // Get the objects we need to modify
-let addRestaurantForm = document.getElementById('add-restaurant-form-ajax');
+let addRestaurantForm = document.getElementById('add-restaurantsDishes-form-ajax');
 
 // Modify the objects we need
 addRestaurantForm.addEventListener("submit", function (e) {
@@ -8,7 +8,7 @@ addRestaurantForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get the form fields from restaurantsDishes.hbs
-    let inputRestaurantName = document.getElementById("input-restaurant-name");
+    let inputRestaurantName = document.getElementById("input-restaurantsDishes-name");
 
     
     // Get the values from the form fields
@@ -21,15 +21,15 @@ addRestaurantForm.addEventListener("submit", function (e) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-restaurant", true);
+    xhttp.open("POST", "/add-restaurantsDishes", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
-            // Add the new restaurant data to the table
-            addRowToRestaurantTable(xhttp.response);
+            // Add the new restaurantsDishes data to the table
+            addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
             inputRestaurantName.value = '';
@@ -40,16 +40,15 @@ addRestaurantForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
-    console.log(data);
     xhttp.send(JSON.stringify(data));
 })
 
 // Creates a single row from an Object representing a single record from
 // the Restaurants table
-addRowToRestaurantTable = (data) => {
+addRowToTable = (data) => {
 
     // Get a reference to the current table on the page
-    let currentTable = document.getElementById("Restaurants-Table");
+    let currentTable = document.getElementById("restaurantsDishes-table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
