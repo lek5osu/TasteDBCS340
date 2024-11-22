@@ -88,7 +88,7 @@ app.post('/add-restaurant', function(req, res) {
 });
 
 // Update RestaurantsDishes
-app.put('/update-info', function(req, res, next) {
+app.put('/put-restaurant-ajax', function(req, res, next) {
     let data = req.body;
     let RestaurantDishID = parseInt(data.RestaurantDishID);
     let DishID = parseInt(data.DishID);
@@ -105,7 +105,7 @@ app.put('/update-info', function(req, res, next) {
 });
 
 // Delete RestaurantsDishes
-app.delete('/delete Restaurant and Dish', function(req, res, next){
+app.delete('/delete-restaurant-ajax', function(req, res, next){
     let data = req.body;
     let RestaurantDishID = parseInt(data.RestaurantDishID);
     let deleteRestaurantsDishes = `DELETE FROM RestaurantsDishes WHERE RestaurantDishID = ?`;
