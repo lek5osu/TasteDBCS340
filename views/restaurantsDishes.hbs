@@ -1,3 +1,5 @@
+{{!-- jQuery Script --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <html>
 <head>
   <meta charset="utf-8">
@@ -22,7 +24,7 @@
 
 <div id="browse" style="display: block">
 <p><strong>Restaurants</strong></p>
-<table  id = restaurant-table border="1" cellpadding="5" >
+<table  id = Restaurants-Table border="1" cellpadding="5" >
 
     {{!-- Header section --}}
     <thead>
@@ -30,7 +32,7 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th><a href="#">New</a></th>
+            <th></th>
             <th></th>
             {{#each data2.[0]}}
             <th>
@@ -45,22 +47,22 @@
 
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data2}}
-        <tr>
+        <tr data-value="{{this.RestaurantID}}">
             <td><a href="#">Edit</a></td>
-            <td><a href="#">Delete</a></td>
+            <td><button onclick="deleteRestaurant({{this.RestaurantID}})">Delete</button></td>
             <td>{{this.RestaurantID}}</td>
             <td>{{this.RestaurantName}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-<p>&nbsp;</p> <!-- browse/add restaurants -->
+
+<p>&nbsp;</p> 
 
 {{!-- ADD FORM section --}}
 <form id="add-restaurant-form-ajax">
     <label for="input-restaurant-name">Restaurant Name: </label>
     <input type="text" name="input-restaurant-name" id="input-restaurant-name" required>
-
     <input type="submit" value="Add Restaurant">
 </form>
 
@@ -80,7 +82,7 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th><a href="#">New</a></th>
+            <th></th>
             <th></th>
             {{#each data3.[0]}}
             <th>
@@ -97,7 +99,7 @@
         {{#each data3}}
         <tr>
             <td><a href="#">Edit</a></td>
-            <td><a href="#">Delete</a></td>
+            <td><button onclick="deleteDish({{this.DishID}})">Delete</button></td>
             <td>{{this.DishID}}</td>
             <td>{{this.DishName}}</td>
             <td>{{this.CuisineType}}</td>
@@ -105,12 +107,29 @@
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_dish.js"></script>
 <p>&nbsp;</p> <!-- browse Dishes -->
 
+{{!-- ADD FORM section --}}
+<form id="add-dish-form-ajax">
+    <label for="input-dish-name">Dish Name: </label>
+        <input type="text" name="input-dish-name" id="input-dish-name" required>
 
+    <label for="input-cuisine-type">Cuisine Type: </label>
+        <input type="text" name="input-cuisine-type" id="input-cuisine-type" required>
+
+    <input type="submit" value="Add Dish">
+</form>
+
+<!-- Include your JavaScript to handle the AJAX request -->
+<!-- Link to the add_restaurant.js script -->
+<script src="/js/add_dish.js"></script>
+
+
+<p>&nbsp;</p> <!-- browse/add restaurants -->
 
 <p><strong>Restaurants/Dishes Junction Table</strong></p>
-<table id = Restaurant-Dishes-Table" border="1" cellpadding="5>
+<table id = Restaurant-Dishes-Table border="1" cellpadding="5">
 
     {{!-- Header section --}}
     <thead>
@@ -118,7 +137,7 @@
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            <th><a href="#">New</a></th>
+            <th></th>
             <th></th>
             {{#each data1.[0]}}
             <th>
@@ -131,9 +150,9 @@
     {{!-- Body section --}}
     <tbody>
 
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{!--  --}}
         {{#each data1}}
-        <tr>
+        <tr data-value="{{this.RestaurantDishID}}">
             <td>{{this.RestaurantDishID}}</td>
             <td>{{this.DishID}}</td>
             <td>{{this.RestaurantID}}</td>
@@ -143,10 +162,35 @@
         {{/each}}
     </tbody>
 </table>
+
 <script src="./js/delete_restaurant.js"></script>
-  
+
 <p>&nbsp;</p>
 </div> <!-- browse RestaurantsDishes Intersection Table -->
+
+{{!-- ADD FORM section --}}
+
+<form id="add-restaurantsDishes-form">
+      <legend><strong>Add RestaurantsDishes</strong></legend>
+          <fieldset class="fields">
+            <!-- Restaurant Dropdown -->
+            <label> Restaurant: </label>
+            <select name="RestaurantName" id="updateRestaurantName">
+              <option value="">Select a restaurant</option>
+              <option value="1">McDonald's</option> <!-- RestaurantID: 1 -->
+              <option value="2">WingStop</option>  <!-- RestaurantID: 2 -->
+            </select>   
+            <!-- Dish Dropdown -->
+            <label> Dish: </label>
+            <select name="DishName" id="updateDishName">
+              <option value="">Select a Dish</option>
+              <option value="1">Cheeseburger</option> <!-- DishID: 1 -->
+              <option value="2">Buffalo Wings</option> <!-- DishID: 2 -->
+            </select> 
+            <input type="submit" value="Add RestaurantsDishes">
+    </fieldset>
+
+<p>&nbsp;</p>
 
 <div id="update" style="display: block">
     <form id="update_restaurant-form-ajax">
@@ -171,12 +215,11 @@
             </fieldset>
 
     <!--  Buttons -->
-    <input type="submit">
+     <input type="submit">
   </form> 
 <script src="./js/update_restaurant.js"></script>
 </div><!-- update RestaurantDish-->
 
-/*  
 <p>&nbsp;</p>
 <p><strong>Delete Restaurant and Dish</strong></p>
 <div id="delete" style="display: block">
@@ -208,6 +251,6 @@
           <input class="btn" type="button" value="cancel" >
   </form> 
 </div><!-- delete RestaurantDish-->
-*/ May not be necessary
 </body>
+<script src="./js/delete_restaurantsDishes.js"></script>
 </html>

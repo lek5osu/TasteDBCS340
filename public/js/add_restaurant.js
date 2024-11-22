@@ -29,7 +29,7 @@ addRestaurantForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new restaurant data to the table
-            addRowToTable(xhttp.response);
+            addRowToRestaurantTable(xhttp.response);
 
             // Clear the input fields for another transaction
             inputRestaurantName.value = '';
@@ -40,15 +40,16 @@ addRestaurantForm.addEventListener("submit", function (e) {
     }
 
     // Send the request and wait for the response
+    console.log(data);
     xhttp.send(JSON.stringify(data));
 })
 
 // Creates a single row from an Object representing a single record from
 // the Restaurants table
-addRowToTable = (data) => {
+addRowToRestaurantTable = (data) => {
 
     // Get a reference to the current table on the page
-    let currentTable = document.getElementById("restaurant-table");
+    let currentTable = document.getElementById("Restaurants-Table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
