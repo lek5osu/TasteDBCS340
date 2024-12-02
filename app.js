@@ -5,7 +5,7 @@
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-const PORT = 9254;                  // Set a port number at the top so it's easy to change in the future
+const PORT = 9244;                  // Set a port number at the top so it's easy to change in the future
 app.use(express.json());  
 app.use(express.static('public')); // dev note: this was causing so many issues
 
@@ -135,9 +135,40 @@ app.put('/put-restaurant-ajax', function(req, res, next) {
         }
     })
 });
-
+// Delete Restaurants
+app.delete('/delete-restaurant-ajax/', function(req,res,next){
+    let data = req.body;
+    let RestaurantID = parseInt(data.RestaurantID);
+    let deleteRestaurantsDishes = `DELETE FROM Restaurants_Dishes WHERE RestaurantID = ?`;
+    let deleteRestaurants= `DELETE FROM Restaurants WHERE RestaurantID = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteRestaurantsDishes, [RestaurantID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              console.log("Request Body:", req.body);
+              res.sendStatus(400);
+              }
+  
+              else
+              {
+                  // Run the second query
+                  db.pool.query(deleteRestaurants, [RestaurantID], function(error, rows, fields) {
+  
+                      if (error) {
+                          console.log(error);
+                          res.sendStatus(400);
+                      } else {
+                          res.sendStatus(204);
+                      }
+                  })
+              }
+  })});
 // Delete RestaurantsDishes
-app.delete('/delete-restaurant-ajax', function(req, res, next){
+app.delete('/delete-restaurantsDishes-ajax', function(req, res, next){
     let data = req.body;
     let RestaurantDishID = parseInt(data.RestaurantDishID);
     let deleteRestaurantsDishes = `DELETE FROM RestaurantsDishes WHERE RestaurantDishID = ?`;
