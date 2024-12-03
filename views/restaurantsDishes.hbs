@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Taste DB</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+{{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 </head>
 <body>
     <header>
@@ -140,12 +140,12 @@
             <td>{{this.RestaurantID}}</td>            
             <td>{{this.DishID}}</td>
             <td><a href="#">Edit</a></td>
-            <td><button onclick="deleteRestaurantDish({{this.RestaurantDishID}})">Delete</button> </td>
+            <td><button onclick="deleteRestaurantDish({{this.RestaurantDishID}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-<script src="./js/delete_restaurant.js"></script>
+<script src="./js/delete_restaurantsDishes.js"></script>
 <p>&nbsp;</p>
 </div> <!-- browse RestaurantsDishes Intersection Table -->
 {{!-- ADD FORM section --}}
@@ -154,39 +154,39 @@
         <input type="text" name="input-restaurant-ID" id="input-restaurant-ID" required>
     <label for="input-dish-ID">DishID: </label>
         <input type="text" name="input-dish-ID" id="input-dish-ID" required>
-
-    <input type="submit" value="Add Restaurant & Dish">
+    <input type="submit" value="Add RestaurantID & DishID">
 </form>
 <!-- Include your JavaScript to handle the AJAX request -->
 <!-- Link to the add_restaurantsDishes.js script -->
 <script src="/js/add_restaurantsDishes.js"></script>
 <p>&nbsp;</p> <!-- browse/add restaurants&dishes -->
 <div id="update" style="display: block">
-    <form id="update_restaurant-form-ajax">
+    <form id="update-RestaurantsDishes-form-ajax" method="POST" action="/put-restaurantDish-adax">
         <legend><strong>Update Restaurants and Dishes</strong></legend>
             <fieldset class="fields">
             <!-- RestaurantDish Dropdown -->
-                <label for="inputRestaurantDish"> RestaurantDishID: </label>
-                <select name="inputRestaurantDish" id="mySelect">
-                    <option value="">Select a RestaurantDishID</option>
-                    {{#each RestaurantDishID}}
-                    <option value="{{this.RestaurantDishID}}">{{this.RestaurantDishID}}</option>
+
+                <label for="input-RestaurantDishID-update"> RestaurantDishID: </label>
+                <select name="input-RestaurantDishID-update" id="input-RestaurantDishID-update">
+                    <option value="" disabled selected>Select a RestaurantDishID</option>
+                    {{#each data1}}
+                    <option value="{{this.RestaurantDishID}}">{{this.name}}</option>
                     {{/each}}
                 </select>   
 
                 <!-- Restaurant Dropdown -->
-                <label for="input-Restaurant-update">RestaurantID: </label>
-                <input type="text" name="input-Restaurant-update" id="input-Restaurant-update">
+                <label for="input-RestaurantID-update">RestaurantID: </label>
+                <input type="number" name="input-RestaurantID-update" id="input-RestaurantID-update">
 
                 <!-- Dish Dropdown -->
-                <label for="input-Dish-update"> DishID: </label>
-                <input type="text" name="input-Dish-update" id="input-Dish-update">
+                <label for="input-DishID-update"> DishID: </label>
+                <input type="number" name="input-DishID-update" id="input-DishID-update">
             </fieldset>
 
     <!--  Buttons -->
      <input type="submit">
   </form> 
-<script src="./js/update_restaurant.js"></script>
+<script src="./js/update_restaurantsDishes.js"></script>
 </div><!-- update RestaurantDish-->
 <p>&nbsp;</p>
 </body>
