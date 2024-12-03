@@ -1,0 +1,80 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Taste DB</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <h1>Home Page</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/users">Users Database</a></li>
+            <li><a href="/restaurantsDishes">Restaurants and Dishes Database</a></li>
+            <li><a href="/restaurantsAddresses">Restaurant Addresses Database</a></li>
+            <li><a href="/reviews">Reviews Database</a></li>
+        </ul>
+    </nav>
+
+
+<div id="browse" style="display: block">
+<p><strong>Users</strong></p>
+<table  id = Users-Table border="1" cellpadding="5" >
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data1.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data1}}
+        <tr data-value="{{this.UserID}}">
+            <td>{{this.UserID}}</td>
+            <td>{{this.UserFirstName}}</td>
+            <td>{{this.UserLastName}}</td>
+            <td>{{this.UserEmail}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<p>&nbsp;</p> 
+
+{{!-- ADD FORM section --}}
+<form id="add-users-form-ajax">
+    <label for="input-user-name">First Name: </label>
+    <input type="text" name="input-user-first-name" id="input-user-first-name" required>
+
+    <label for="input-user-name">Last Name: </label>
+    <input type="text" name="input-user-last-name" id="input-user-last-name" required>
+
+    <label for="input-user-email">Email: </label>
+    <input type="email" name="input-user-email" id="input-user-email" required>
+    
+    <input type="submit" value="Add User">
+</form>
+
+<!-- Include your JavaScript to handle the AJAX request -->
+<!-- Link to the add_user.js script -->
+<script src="/js/add_user.js"></script>
+
+
+<p>&nbsp;</p> <!-- browse/add users -->
+
+
+</body>
+</html>
