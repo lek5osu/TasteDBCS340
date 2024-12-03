@@ -1,11 +1,7 @@
-/*
-    SETUP
-*/
-
 // Express
 var express = require('express');   // We are using the express library for the web server
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
-const PORT = 9245;                  // Set a port number at the top so it's easy to change in the future
+const PORT = 9241;                  // Set a port number at the top so it's easy to change in the future
 app.use(express.json());  
 app.use(express.static('public')); // dev note: this was causing so many issues
 
@@ -123,7 +119,6 @@ app.post('/add-dish', function(req, res) {
 app.post('/add-RestaurantDish', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
     query1 = `INSERT INTO Restaurants_Dishes (RestaurantID, DishID) VALUES ('${data.RestaurantID}', '${data.DishID}')`;
 
     db.pool.query(query1, function(error, rows, fields) {
@@ -133,7 +128,7 @@ app.post('/add-RestaurantDish', function(req, res) {
             res.sendStatus(400);
         } else {
             // If the insert was successful, fetch the updated list of restaurants
-            query2 = `SELECT * FROM Restaurants_Dishes`;
+            query2 = `SELECT * FROM Restaurants_Dishes;`;
 
             // Fetch the updated list of restaurants
             db.pool.query(query2, function(error, rows, fields) {
@@ -150,19 +145,29 @@ app.post('/add-RestaurantDish', function(req, res) {
     });
 });
 
-// Update RestaurantsDishes
-app.put('/put-restaurant-ajax', function(req, res, next) {
+// Update Restaurants & Dishes
+app.put('/put-restaurantDish-ajax', function(req, res, next) {
     let data = req.body;
     let RestaurantDishID = parseInt(data.RestaurantDishID);
     let DishID = parseInt(data.DishID);
     let RestaurantID = parseInt(data.RestaurantID);
 
-    let queryUpdateRestaurantsDishes = `UPDATE RestaurantsDishes SET RestaurantID = ?, DishID = ?`;
+    let queryUpdateRestaurantsDishes = `UPDATE Restaurants_Dishes SET RestaurantID = ?, DishID = ?`;
+    let querySelect = `SELECT * FROM Restaurants_Dishes WHERE RestaurantDishID = ?`;
 
     db.pool.query(queryUpdateRestaurantsDishes, [RestaurantDishID, RestaurantID, DishID], function(error, rows, fields){
         if (error){
             console.log(error);
             return res.sendStatus(400);
+        } else{
+            db.pool.query(querySelect, [RestaurantDishID], function(error, rows, fields){
+                if (error){
+                    console.log(error);
+                    res.sendStatus(400);
+                } else{
+                    res.send(rows);
+                }
+            })
         }
     })
 });
@@ -172,6 +177,7 @@ app.delete('/delete-dish-ajax/', function(req,res,next){
     let data = req.body;
     let DishID = parseInt(data.DishID);
     let deleteRestaurantsDishes = `DELETE FROM Restaurants_Dishes WHERE DishID = ?`;
+    console.log("There was an error");
     let deleteDishes = `DELETE FROM Dishes WHERE DishID = ?`;
         // Run the 1st query
         db.pool.query(deleteRestaurantsDishes, [DishID], function(error, rows, fields){
@@ -223,10 +229,10 @@ app.delete('/delete-restaurant-ajax/', function(req,res,next){
 });
 
 // Delete RestaurantsDishes
-app.delete('/delete-restaurantsDishes-ajax', function(req, res, next){
+app.delete('/delete-restaurantDish-ajax', function(req, res, next){
     let data = req.body;
     let RestaurantDishID = parseInt(data.RestaurantDishID);
-    let deleteRestaurantsDishes = `DELETE FROM RestaurantsDishes WHERE RestaurantDishID = ?`;
+    let deleteRestaurantsDishes = `DELETE FROM Restaurants_Dishes WHERE RestaurantDishID = ?`;
 
     // Run the query
     db.pool.query(deleteRestaurantsDishes, [RestaurantDishID], function(error, rows, fields){
