@@ -136,14 +136,49 @@ app.get('/reviews', function (req, res) {
 
 
 // Route for RestaurantsAddresses Browse
-app.get('/restaurantsAddresses', function(req, res) {
-    let query1 = 'SELECT * FROM Restaurant_Address;';
+app.get('/restaurantsAddresses', function (req, res) {
+    // Query to retrieve Restaurant Addresses
+    let query = `
+        SELECT 
+            Restaurant_Address.AddressID,
+            Restaurants.RestaurantName,
+            Restaurant_Address.Address,
+            Restaurant_Address.City,
+            Restaurant_Address.State,
+            Restaurant_Address.Zipcode,
+            Restaurant_Address.Suite
+        FROM Restaurant_Address
+        JOIN Restaurants ON Restaurant_Address.RestaurantID = Restaurants.RestaurantID;
+    `;
 
-    db.pool.query(query1, function(error, results) {
+    // Dropdown Query for Restaurants
+    let queryRestaurants = `SELECT RestaurantID, RestaurantName FROM Restaurants;`;
+
+    // Run the main Restaurant Addresses query
+    db.pool.query(query, function (error, rows, fields) {
         if (error) throw error;
-        res.render('restaurantsAddresses', {data1: results});
+
+        // Save the Restaurant Addresses data
+        let restaurantAddresses = rows;
+        console.log("Restaurant Addresses:", restaurantAddresses);
+
+        // Run the Restaurants query for the dropdown
+        db.pool.query(queryRestaurants, function (error, rows, fields) {
+            if (error) throw error;
+
+            // Save the Restaurants data
+            let restaurants = rows;
+            console.log("Restaurants:", restaurants);
+
+            // Render the restaurantAddresses page with all the data
+            return res.render('restaurantsAddresses', {
+                data1: restaurantAddresses,
+                restaurants: restaurants.map(r => ({ id: r.RestaurantID, name: r.RestaurantName }))
+            });
+        });
     });
 });
+
 
 // Add Restaurant Route (POST)
 app.post('/add-restaurant', function(req, res) {
@@ -272,6 +307,53 @@ app.post('/add-review', function(req, res) {
     });
 });
 
+// Add Restaurant Address Route (POST)
+app.post('/add-restaurantAddress', function(req, res) {
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Construct the SQL query to insert the new restaurant address
+    query1 = `
+        INSERT INTO Restaurant_Address (RestaurantID, Address, City, State, Zipcode, Suite) 
+        VALUES ('${data.RestaurantID}', '${data.Address}', '${data.City}', '${data.State}', '${data.Zipcode}', ${data.Suite ? `'${data.Suite}'` : 'NULL'})
+    `;
+
+    // Execute the insertion query
+    db.pool.query(query1, function(error, rows, fields) {
+        // Check if there was an error with the insertion
+        if (error) {
+            console.log(error);  // Log the error for debugging
+            res.sendStatus(400);
+        } 
+        else {
+            // If the insert was successful, fetch the updated list of restaurant addresses
+            query2 = `
+                SELECT 
+                    Restaurant_Address.AddressID,
+                    Restaurants.RestaurantName,
+                    Restaurant_Address.Address,
+                    Restaurant_Address.City,
+                    Restaurant_Address.State,
+                    Restaurant_Address.Zipcode,
+                    Restaurant_Address.Suite
+                FROM Restaurant_Address
+                JOIN Restaurants ON Restaurant_Address.RestaurantID = Restaurants.RestaurantID;
+            `;
+
+            // Fetch the updated list of restaurant addresses
+            db.pool.query(query2, function(error, rows, fields) {
+                // Check if there was an error with the SELECT query
+                if (error) {
+                    console.log(error);  
+                    res.sendStatus(400);
+                } 
+                else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
 
 // Update RestaurantsDishes
 app.put('/put-restaurant-ajax', function(req, res, next) {

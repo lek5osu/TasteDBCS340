@@ -22,7 +22,7 @@
 
 <div id="browse" style="display: block">
 <p><strong>Restaurant Addresses</strong></p>
-<table id="RestaurantsAddresses-Table" border="1" cellpadding="5">
+<table id="RestaurantAddresses-Table" border="1" cellpadding="5">
 
     <!-- Header section -->
     <thead>
@@ -42,7 +42,7 @@
         {{#each data1}}
         <tr data-value="{{this.AddressID}}">
             <td>{{this.AddressID}}</td>
-            <td>{{this.RestaurantID}}</td>
+            <td>{{this.RestaurantName}}</td>
             <td>{{this.Address}}</td>
             <td>{{this.City}}</td>
             <td>{{this.State}}</td>
@@ -56,22 +56,38 @@
 </div>
 
 {{!-- ADD FORM section --}}
-<form id="add-restaurant-form-ajax">
-    <label for="input-user-name">First Name: </label>
-    <input type="text" name="input-user-first-name" id="input-user-first-name" required>
-    <label for="input-user-name">Last Name: </label>
-    <input type="text" name="input-user-first-name" id="input-user-first-name" required>
-    <label for="input-user-email">Email: </label>
-    <input type="email" name="input-user-email" id="input-user-email" required>
-    <input type="submit" value="Add User">
+<form id="add-restaurantAddresses-form-ajax">
+    <select id="input-restaurant-id" name="input-restaurant-id">
+        <option value="">Select a Restaurant</option>
+        {{#each restaurants}}
+        <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-address">Address: </label>
+    <input type="text" name="input-address" id="input-address" required>
+
+    <label for="input-city">City: </label>
+    <input type="text" name="input-city" id="input-city" required>
+
+    <label for="input-state">State: </label>
+    <input type="text" name="input-state" id="input-state" required>
+
+    <label for="input-zipcode">Zipcode: </label>
+    <input type="text" name="input-zipcode" id="input-zipcode" required>
+
+    <label for="input-suite">Suite: </label>
+    <input type="text" name="input-suite" id="input-suite">
+
+    <input type="submit" value="Add Address">
 </form>
 
 <!-- Include your JavaScript to handle the AJAX request -->
-<!-- Link to the add_user.js script -->
-<script src="/js/add_user.js"></script>
+<!-- Link to the add_restaurantAddress.js script -->
+<script src="/js/add_restaurantAddress.js"></script>
 
 
-<p>&nbsp;</p> <!-- browse/add users -->
+<p>&nbsp;</p> <!-- browse/add restaurantAddress -->
 
 
 </body>
