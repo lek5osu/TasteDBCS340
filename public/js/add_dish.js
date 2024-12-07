@@ -99,11 +99,12 @@ addRowToDishTable = (data) => {
     // Append all cells to the row
     editCell.appendChild(editLink);
     deleteCell.appendChild(deleteLink);
-    row.appendChild(editCell);
-    row.appendChild(deleteCell);
     row.appendChild(dishIDCell);
     row.appendChild(dishNameCell);
     row.appendChild(cuisineTypeCell);
+    row.appendChild(editCell);
+    row.appendChild(deleteCell);
+    
     currentTable.appendChild(row);
 
 }

@@ -97,6 +97,8 @@ addRowToRestaurantTable = (data) => {
     row.appendChild(deleteCell);
     row.appendChild(restaurantIDCell);
     row.appendChild(restaurantNameCell);
+    row.appendChild(editCell);
+    row.appendChild(deleteCell);
     currentTable.appendChild(row);
 
 }
