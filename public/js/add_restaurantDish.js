@@ -1,8 +1,8 @@
 // Get the objects we need to modify
-let addRestaurantForm = document.getElementById('add-restaurantsDishes-form-ajax');
+let addRestaurantDishForm = document.getElementById('add-restaurantsDishes-form-ajax');
 
 // Modify the objects we need
-addRestaurantForm.addEventListener("submit", function (e) {
+addRestaurantDishForm.addEventListener("submit", function (e) {
     
     // Prevent the form from submitting
     e.preventDefault();
@@ -13,8 +13,8 @@ addRestaurantForm.addEventListener("submit", function (e) {
 
     
     // Get the values from the form fields
-    let restaurantNameValue = inputRestaurantName.value;
-
+    let restaurantIDValue = inputRestaurantID.value;
+    let dishIDValue = inputDishID.value;
     // Put our data we want to send in a javascript object
     let data = {
         RestaurantID: restaurantIDValue,
@@ -35,7 +35,8 @@ addRestaurantForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputRestaurantName.value = '';
+            inputRestaurantID.value = '';
+            inputDishID.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.");
@@ -83,7 +84,7 @@ addRowToTable = (data) => {
     // Delete Event Listener
     deleteLink.addEventListener("click", function() {
         deleteRestaurantDish(newRow.RestaurantDishID);
-; 
+    }); 
 
 
      // Create the data cells 
@@ -96,13 +97,13 @@ addRowToTable = (data) => {
      
 
     // Append all cells to the row
+    row.appendChild(restaurantDishIDCell);
     row.appendChild(restaurantIDCell);
-    row.appendChild(restaurantNameCell);
+    row.appendChild(dishIDCell);
     row.appendChild(editCell);
     row.appendChild(deleteCell);
     editCell.appendChild(editLink);
     deleteCell.appendChild(deleteLink);
     currentTable.appendChild(row);
 
-    })
-}
+    }

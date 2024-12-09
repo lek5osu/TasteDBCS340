@@ -1,5 +1,5 @@
 // Get the objects we need to modify
-let updateRestaurantForm = document.getElementById('update-Restaurants-form-ajax');
+let updateRestaurantDishForm = document.getElementById('update-RestaurantsDishes-form-ajax');
 
 // Modify the objects we need
 updateRestaurantForm.addEventListener ("submit", function(e){
@@ -9,7 +9,7 @@ updateRestaurantForm.addEventListener ("submit", function(e){
     // Get form fields we need to get data from
     let inputRestaurantDishID = document.getElementById("input-RestaurantDishID-update");
     let inputRestaurantID = document.getElementById("input-RestaurantID-update");
-    let inputRestaurantName = document.getElementById("input-RestaurantName-update");
+    let inputDishID = document.getElementById("input-DishID-update");
 
     // Get the values from the form fields
     let restaurantDishIDValue = inputRestaurantDishID.value;

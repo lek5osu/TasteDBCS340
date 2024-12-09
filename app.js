@@ -32,28 +32,54 @@ app.get('/restaurantsDishes', function(req, res) {
     let query1 = 'SELECT * FROM Restaurants_Dishes;';
     let query2 = 'SELECT * FROM Restaurants;';
     let query3 = 'SELECT * FROM Dishes;';
+    // Dropdown Queries
+    let queryRestaurants = `SELECT RestaurantID, RestaurantName FROM Restaurants;`;
+    let queryDishes = `SELECT DishID, DishName FROM Dishes;`;
 
-    // Execute query1 (Restaurants_Dishes)
+    // Execute query1 (Restaurants_Dishes table)
     db.pool.query(query1, function(error, results1) {
-        if (error) throw error;  // Handle any query errors
-        
-        // Execute query2 (Restaurants)
+        if (error) throw error;
+
+        // Execute query2 (Restaurants table)
         db.pool.query(query2, function(error, results2) {
-            if (error) throw error;  // Handle any query errors
-            
-            // Execute query3 (Dishes)
+            if (error) throw error;
+
+            // Execute query3 (Dishes table)
             db.pool.query(query3, function(error, results3) {
-                if (error) throw error;  // Handle any query errors
-                
-                res.render('restaurantsDishes', {
-                    data1: results1,  // Data from Restaurants_Dishes
-                    data2: results2,  // Data from Restaurants
-                    data3: results3   // Data from Dishes
+                if (error) throw error;
+
+                // Run Restaurants query
+                db.pool.query(queryRestaurants, function(error, rows, fields) {
+                    if (error) throw error;
+
+                    // Save the Restaurants data
+                    let restaurants = rows;
+                    console.log("Restaurants:", restaurants);
+
+                    // Run Dishes query
+                    db.pool.query(queryDishes, function(error, rows, fields) {
+                        if (error) throw error;
+
+                        // Save the Dishes data
+                        let dishes = rows;
+                        console.log("Dishes:", dishes);
+
+                        res.render('restaurantsDishes', {
+                            data1: results1,  // Data from Restaurants_Dishes
+                            data2: results2,  // Data from Restaurants
+                            data3: results3,  // Data from Dishes
+                            // map dropdowns in add form
+                            restaurants: restaurants.map(r => ({ id: r.RestaurantID, name: r.RestaurantName })),
+                            dishes: dishes.map(d => ({ id: d.DishID, name: d.DishName })),
+                        });
+                    });
                 });
             });
         });
     });
 });
+
+
 
 // Route for Users Browse
 app.get('/users', function(req, res) {
@@ -180,7 +206,7 @@ app.get('/restaurantsAddresses', function (req, res) {
 });
 
 
-// Add Restaurant Route (POST)
+// Add Restaurant Route 
 app.post('/add-restaurant', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -212,7 +238,7 @@ app.post('/add-restaurant', function(req, res) {
     });
 });
 
-// Add Dish Route (POST)
+// Add Dish Route 
 app.post('/add-dish', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -244,7 +270,7 @@ app.post('/add-dish', function(req, res) {
     });
 });
 
-// Add Restaurant and Dish
+// Add Restaurant and Dish Route
 app.post('/add-RestaurantDish', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -274,7 +300,7 @@ app.post('/add-RestaurantDish', function(req, res) {
     });
 });
 
-// Add User Route (POST)
+// Add User Route 
 app.post('/add-user', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -304,7 +330,7 @@ app.post('/add-user', function(req, res) {
     });
 });
 
-// Add Review Route (POST)
+// Add Review Route 
 app.post('/add-review', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -337,7 +363,7 @@ app.post('/add-review', function(req, res) {
     });
 });
 
-// Add Restaurant Address Route (POST)
+// Add Restaurant Address Route 
 app.post('/add-restaurantAddress', function(req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -392,24 +418,31 @@ app.put('/put-restaurantDish-ajax', function(req, res, next) {
     let DishID = parseInt(data.DishID);
     let RestaurantID = parseInt(data.RestaurantID);
 
-    let queryUpdateRestaurantsDishes = `UPDATE Restaurants_Dishes SET RestaurantID = ?, DishID = ?`;
-    let querySelect = `SELECT * FROM Restaurants_Dishes WHERE RestaurantDishID = ?`;
+    let queryUpdateRestaurantsDishes = `UPDATE Restaurants_Dishes SET RestaurantID = ?, DishID = ? WHERE RestaurantDishID = ?`;
+    let querySelect = `SELECT 
+    Restaurants_Dishes.RestaurantDishID, 
+    Restaurants.RestaurantName, 
+    Dishes.DishName
+    FROM Restaurants_Dishes
+    INNER JOIN Restaurants ON Restaurants_Dishes.RestaurantID = Restaurants.RestaurantID
+    INNER JOIN Dishes ON Restaurants_Dishes.DishID = Dishes.DishID
+    ORDER BY Restaurants_Dishes.RestaurantDishID DESC;`
 
-    db.pool.query(queryUpdateRestaurantsDishes, [RestaurantDishID, RestaurantID, DishID], function(error, rows, fields){
-        if (error){
-            console.log(error);
-            return res.sendStatus(400);
-        } else{
-            db.pool.query(querySelect, [RestaurantDishID], function(error, rows, fields){
-                if (error){
-                    console.log(error);
-                    res.sendStatus(400);
-                } else{
-                    res.send(rows);
+    db.pool.query(queryUpdateRestaurantsDishes, [RestaurantID, DishID, RestaurantDishID], function(error, results, fields) {
+        if (error) {
+            console.log("Update Error:", error);
+            return res.sendStatus(400); 
+        } else {
+            db.pool.query(querySelect, [RestaurantDishID], function(error, rows, fields) {
+                if (error) {
+                    console.log(" Select Error:", error);
+                    res.sendStatus(400); 
+                } else {
+                    res.send(rows); 
                 }
-            })
+            });
         }
-    })
+    });
 });
 
 // Delete Dishes
