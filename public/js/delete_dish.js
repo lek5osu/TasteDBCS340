@@ -12,7 +12,7 @@ function deleteDish(DishID) {
     // Tells AJAX how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
-            deleteRow(DishID);
+            deleteDishRow(DishID);
         } else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.");
         }
@@ -21,7 +21,7 @@ function deleteDish(DishID) {
     xhttp.send(JSON.stringify(data));
 }
 
-function deleteRow(DishID) {
+function deleteDishRow(DishID) {
     let table = document.getElementById("Dishes-Table");
     if (table) { // Check if table exists
         for (let i = 0, row; row = table.rows[i]; i++) {

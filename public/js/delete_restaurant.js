@@ -13,8 +13,8 @@ function deleteRestaurant(RestaurantID) {
     // Tells AJAX how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
-            console.log("Calling deleteRow function...");
-            deleteRow(RestaurantID);
+            console.log("Calling deleteRow function...",RestaurantID);
+            deleteRestaurantRow(RestaurantID);
             console.log("deleteRow function called.");
         } else if (xhttp.readyState == 4 && xhttp.status != 204) {
             console.log("There was an error with the input.");
@@ -23,8 +23,7 @@ function deleteRestaurant(RestaurantID) {
     // Send request and wait
     xhttp.send(JSON.stringify(data));
 }
-
-function deleteRow(RestaurantID) {
+function deleteRestaurantRow(RestaurantID) {
     console.log("Table rows and data-value attributes:"); // Debugging
     let table = document.getElementById("Restaurants-Table");
     if (table) { 
