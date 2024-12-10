@@ -3,11 +3,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>Taste DB</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <header>
-        <h1>Home Page</h1>
+        <h1>Restaurants, Dishes and RestaurantDishes Table</h1>
     </header>
     <nav>
         <ul>
@@ -21,35 +21,29 @@
 
 
 <div id="browse" style="display: block">
-<p><strong>Restaurants</strong></p>
-<table  id = Restaurants-Table border="1" cellpadding="5" >
-
+<h2>Restaurants</h2>
+<table id="Restaurants-Table" border="1" cellpadding="5" >
     {{!-- Header section --}}
     <thead>
-
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            
-            {{#each data2.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>Edit</th>
+    
+            <th>RestaurantID</th>
+            <th>RestaurantName</th>
+            <th></th>
             <th>Delete</th>
         </tr>
     </thead>
 
     {{!-- Body section --}}
     <tbody>
-
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data2}}
         <tr data-value="{{this.RestaurantID}}">
             <td>{{this.RestaurantID}}</td>
             <td>{{this.RestaurantName}}</td>
-            <td><a href="#">Edit</a></td>
+            <td></td>
             <td><button onclick="deleteRestaurant({{this.RestaurantID}})">Delete</button></td>
         </tr>
         {{/each}}
@@ -59,6 +53,7 @@
 <p>&nbsp;</p> 
 
 {{!-- ADD FORM section --}}
+<h2>Add Restaurant</h2>
 <form id="add-restaurant-form-ajax">
     <label for="input-restaurant-name">Restaurant Name: </label>
     <input type="text" name="input-restaurant-name" id="input-restaurant-name" required>
@@ -73,35 +68,37 @@
 <p>&nbsp;</p> <!-- browse/add restaurants -->
 
 
-<p><strong>Dishes</strong></p>
-<table id = Dishes-Table border="1" cellpadding="5">
+<h2>Dishes</h2>
+<table id="Dishes-Table" border="1" cellpadding="5">
 {{!-- Header section --}}
     <thead>
-
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         <tr>
-            
+        {{#if data3.[0]}}
             {{#each data3.[0]}}
-            <th>
-                {{@key}}
-            </th>
+                <th>
+                    {{@key}}
+                </th>
             {{/each}}
+        {{else}}
+            <th>DishID</th>
+            <th>DishName</th>
+            <th>CuisineType</th>
+        {{/if}}
             <th></th>
-            <th></th>
+            <th>Delete</th>
         </tr>
     </thead>
-
     {{!-- Body section --}}
     <tbody>
-
         {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
         {{#each data3}}
-        <tr>
+        <tr data-value="{{this.DishID}}">
             <td>{{this.DishID}}</td>
             <td>{{this.DishName}}</td>
             <td>{{this.CuisineType}}</td>
-            <td><a href="#">Edit</a></td>
+            <td></td>
             <td><button onclick="deleteDish({{this.DishID}})">Delete</button></td>
         </tr>
         {{/each}}
@@ -111,6 +108,7 @@
 <p>&nbsp;</p> <!-- browse Dishes -->
 
 {{!-- ADD FORM section --}}
+<h2>Add Dish</h2>
 <form id="add-dish-form-ajax">
     <label for="input-dish-name">Dish Name: </label>
         <input type="text" name="input-dish-name" id="input-dish-name" required>
@@ -127,36 +125,31 @@
 <p>&nbsp;</p> <!-- browse/add restaurants -->
 
 {{!-- RESTAURANTS AND DISHES TABLE --}}
-<p><strong>Restaurants/Dishes Junction Table</strong></p>
-<table id = Restaurants-Dishes-Table border="1" cellpadding="5">
-
+<h2>Restaurants/Dishes Junction Table</h2>
+<table id="Restaurants-Dishes-Table" border="1" cellpadding="5">
     {{!-- Header section --}}
     <thead>
-
         {{!-- For just the first row, we print each key of the row object as a header cell so we
         know what each column means when the page renders --}}
         {{!- We if/else was used to prevent the table from collapsing if it is empty --}}
         <tr> 
             {{#if data1.[0]}}
                 {{#each data1.[0]}}
-                <th>
-                    {{@key}}
-                </th>
+                    <th>
+                        {{@key}}
+                    </th>
                 {{/each}}
             {{else}}
                 <th>RestaurantDishID</th>
                 <th>DishID</th>
                 <th>RestaurantID</th>
             {{/if}}
-            <th>Edit</th>
-            <th>Delete</th>
+                <th>Edit</th>
+                <th>Delete</th>
         </tr>
     </thead>
-
     {{!-- Body section --}}
     <tbody>
-
-        {{!--  --}}
         {{#each data1}}
         <tr data-value="{{this.RestaurantDishID}}">
             <td>{{this.RestaurantDishID}}</td>
@@ -179,8 +172,9 @@
 </div> <!-- browse RestaurantsDishes Intersection Table -->
 
 {{!-- ADD FORM section --}}
-
 <form id="add-restaurantsDishes-form-ajax">
+    <h2>Add Restaurant/Dish Composite Key</h2>
+    <h4>(Enter Unique Keys Only)</h4>
     <select id="input-restaurant-ID" name="input-restaurant-ID">
         <option value="">Select a Restaurant</option>
         {{#each restaurants}}
@@ -202,7 +196,10 @@
 <script src="/js/add_restaurantDish.js"></script>
 <p>&nbsp;</p> <!-- browse/add restaurants&dishes -->
 
+
 <div id="update-RestaurantDish-form" style="display: none;">
+    <h2>Update Restaurant/Dish Composite Key</h2>
+    <h3>Unique Keys Only</h3>
     <form id="update-RestaurantsDishes-form-ajax">
         <label for="input-RestaurantDishID-update">RestaurantDishID: </label>
         <input type="text" id="input-RestaurantDishID-update" name="RestaurantDishID" readonly>

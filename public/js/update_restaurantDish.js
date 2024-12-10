@@ -69,15 +69,17 @@ function updateRow (data, RestaurantDishID){
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == RestaurantDishID) {
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            // Get td of restaurantName value
-            let tdRestaurantName = updateRowIndex.getElementsByTagName("td")[1];
             // Get td of dishName value
-            let tdDishName = updateRowIndex.getElementsByTagName("td")[2];
-            console.log(tdRestaurantName)
-            console.log(tdDishName)
-            // Reassign old values to our new value we updated to
-            tdRestaurantName.innerHTML = parsedData[0].name;
-            tdDishName.innerHTML = parsedData[0].name;
+            let tdDishID = updateRowIndex.getElementsByTagName("td")[1];
+            // Get td of restaurantName value
+            let tdRestaurantID = updateRowIndex.getElementsByTagName("td")[2];
+            console.log(tdRestaurantID)
+            console.log(tdDishID)
+            // Reassign old values to our new value we updated to 
+            // Note: parse using specific database row name
+            tdRestaurantID.innerHTML = parsedData[0].RestaurantID;
+            tdDishID.innerHTML = parsedData[0].DishID;
+
        }
     }
 }function openUpdateForm(RestaurantDishID, RestaurantID, DishID) {
@@ -104,5 +106,10 @@ function updateRow (data, RestaurantDishID){
 
     
     document.getElementById("update-RestaurantDish-form").style.display = "block";
+    //REF: https://www.w3schools.com/jsref/met_element_scrollintoview.asp
+    //REF: https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+    // Scroll form into view
+    const formElement = document.getElementById("update-RestaurantDish-form");
+    formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 

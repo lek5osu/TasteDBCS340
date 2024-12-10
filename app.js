@@ -7,7 +7,7 @@ var express = require('express');   // We are using the express library for the 
 var app     = express();            // We need to instantiate an express object to interact with the server in our code
 const PORT = 9244;                  // Set a port number at the top so it's easy to change in the future
 app.use(express.json());  
-app.use(express.static('public')); // dev note: this was causing so many issues
+app.use(express.static('public')); 
 
 // Database
 var db = require('./database/db-connector');
@@ -421,12 +421,10 @@ app.put('/put-restaurantDish-ajax', function(req, res, next) {
     let queryUpdateRestaurantsDishes = `UPDATE Restaurants_Dishes SET RestaurantID = ?, DishID = ? WHERE RestaurantDishID = ?`;
     let querySelect = `SELECT 
     Restaurants_Dishes.RestaurantDishID, 
-    Restaurants.RestaurantName, 
-    Dishes.DishName
+    Restaurants_Dishes.RestaurantID, 
+    Restaurants_Dishes.DishID
     FROM Restaurants_Dishes
-    INNER JOIN Restaurants ON Restaurants_Dishes.RestaurantID = Restaurants.RestaurantID
-    INNER JOIN Dishes ON Restaurants_Dishes.DishID = Dishes.DishID
-    ORDER BY Restaurants_Dishes.RestaurantDishID DESC;`
+    ORDER BY Restaurants_Dishes.RestaurantDishID ASC;`
 
     db.pool.query(queryUpdateRestaurantsDishes, [RestaurantID, DishID, RestaurantDishID], function(error, results, fields) {
         if (error) {

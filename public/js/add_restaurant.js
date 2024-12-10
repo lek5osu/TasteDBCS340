@@ -62,17 +62,17 @@ addRowToRestaurantTable = (data) => {
     let row = document.createElement("TR");
 
     // Create the Edit and Delete cells with links
-    let editCell = document.createElement("TD");
+    let blankCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
-    // Create the Edit link
+    /* Create the Edit link
     let editLink = document.createElement("A");
     editLink.href = "#";
     editLink.innerText = "Edit";
     // Add the event listener for the Edit button (you can define the edit function)
     editLink.addEventListener("click", function() {
         editRestaurant(newRow.RestaurantID); // Replace with your edit function
-    });
+    }); */
 
     // Create the Delete link
     let deleteLink = document.createElement("A");
@@ -91,13 +91,11 @@ addRowToRestaurantTable = (data) => {
     restaurantNameCell.innerText = newRow.RestaurantName;
 
     // Append all cells to the row
-    editCell.appendChild(editLink);
+    //editCell.appendChild(editLink);
     deleteCell.appendChild(deleteLink);
-    row.appendChild(editCell);
-    row.appendChild(deleteCell);
     row.appendChild(restaurantIDCell);
     row.appendChild(restaurantNameCell);
-    row.appendChild(editCell);
+    row.appendChild(blankCell);
     row.appendChild(deleteCell);
     currentTable.appendChild(row);
 

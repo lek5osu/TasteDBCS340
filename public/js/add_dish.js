@@ -65,18 +65,18 @@ addRowToDishTable = (data) => {
     // Create a row and cells for each property
     let row = document.createElement("TR");
 
-    // Create the Edit and Delete cells with links
-    let editCell = document.createElement("TD");
+    // Create the blank and Delete cells with links
+    let blankCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
-    // Create the Edit link
-    let editLink = document.createElement("A");
-    editLink.href = "#";
-    editLink.innerText = "Edit";
+    /* Create the Edit link
+    //let editLink = document.createElement("A");
+    //editLink.href = "#";
+    //editLink.innerText = "Edit";
     // Add the event listener for the Edit button (you can define the edit function)
-    editLink.addEventListener("click", function() {
-        editDish(newRow.DishID); // Replace with your edit function
-    });
+    //editLink.addEventListener("click", function() {
+     //   editDish(newRow.DishID); // Replace with your edit function
+    //});*/
 
     // Create the Delete link
     let deleteLink = document.createElement("A");
@@ -85,7 +85,7 @@ addRowToDishTable = (data) => {
     // Add the event listener for the Delete button (you can define the delete function)
     deleteLink.addEventListener("click", function() {
         deleteDish(newRow.DishID); // Replace with your delete function
-    });
+    }); 
 
 
      // Create the data cells for DishID and DishName
@@ -97,12 +97,12 @@ addRowToDishTable = (data) => {
     cuisineTypeCell.innerText = newRow.CuisineType;
 
     // Append all cells to the row
-    editCell.appendChild(editLink);
+    // editCell.appendChild(editLink);
     deleteCell.appendChild(deleteLink);
     row.appendChild(dishIDCell);
     row.appendChild(dishNameCell);
     row.appendChild(cuisineTypeCell);
-    row.appendChild(editCell);
+    row.appendChild(blankCell);
     row.appendChild(deleteCell);
     
     currentTable.appendChild(row);
